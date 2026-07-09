@@ -1,15 +1,17 @@
 #include <mana/context.h>
 #include <unordered_map>
 #include <vector>
+#include <mutex>
 
 namespace mana::context {
 
-class Context::Impl {
+class Context::Implementation {
 public:
+    mutable std::mutex mutex;
     std::unordered_map<std::string, std::any> storage;
 };
 
-Context::Context() : impl_(std::make_unique<Impl>()) {}
+Context::Context() : impl_(std::make_unique<Implementation>()) {}
 
 Context::~Context() = default;
 
@@ -17,11 +19,13 @@ Context::Context(Context&&) noexcept = default;
 Context& Context::operator=(Context&&) noexcept = default;
 
 void Context::put(const std::string& key, std::any value) {
+    std::lock_guard<std::mutex> lock(impl_->mutex);
     impl_->storage[key] = std::move(value);
 }
 
 template<typename T>
 std::optional<T> Context::get(const std::string& key) const {
+    std::lock_guard<std::mutex> lock(impl_->mutex);
     auto it = impl_->storage.find(key);
     if (it == impl_->storage.end()) {
         return std::nullopt;
@@ -35,18 +39,22 @@ std::optional<T> Context::get(const std::string& key) const {
 }
 
 bool Context::has(const std::string& key) const {
+    std::lock_guard<std::mutex> lock(impl_->mutex);
     return impl_->storage.find(key) != impl_->storage.end();
 }
 
 void Context::remove(const std::string& key) {
+    std::lock_guard<std::mutex> lock(impl_->mutex);
     impl_->storage.erase(key);
 }
 
 void Context::clear() {
+    std::lock_guard<std::mutex> lock(impl_->mutex);
     impl_->storage.clear();
 }
 
 std::vector<std::string> Context::keys() const {
+    std::lock_guard<std::mutex> lock(impl_->mutex);
     std::vector<std::string> result;
     result.reserve(impl_->storage.size());
     for (const auto& pair : impl_->storage) {

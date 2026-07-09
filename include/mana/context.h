@@ -5,6 +5,7 @@
 #include <optional>
 #include <vector>
 #include <memory>
+#include <mutex>
 
 #include "export.h"
 
@@ -41,8 +42,8 @@ public:
     std::vector<std::string> keys() const;
 
 private:
-    class Impl;
-    std::unique_ptr<Impl> impl_;
+    class Implementation;
+    std::unique_ptr<Implementation> impl_;
 };
 
 // Global context stack management
