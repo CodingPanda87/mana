@@ -13,6 +13,14 @@ void test_exists();
 void test_file_size();
 void test_read_nonexistent();
 
+// Context test declarations (defined in test_context.cpp)
+void test_context_put_get();
+void test_context_has();
+void test_context_remove();
+void test_context_clear();
+void test_context_keys();
+void test_context_stack();
+
 void test_split() {
     auto result = mana::util::split("hello,world,foo", ",");
     assert(result.size() == 3);
@@ -90,6 +98,14 @@ int main() {
     test_file_size();
     test_read_nonexistent();
     std::cout << "All IO tests passed!" << std::endl;
+
+    test_context_put_get();
+    test_context_has();
+    test_context_remove();
+    test_context_clear();
+    test_context_keys();
+    test_context_stack();
+    std::cout << "All context tests passed!" << std::endl;
 
     return 0;
 }
