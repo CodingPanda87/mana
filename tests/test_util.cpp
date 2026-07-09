@@ -2,6 +2,11 @@
 #include <cassert>
 #include <iostream>
 
+// Log test declarations (defined in test_log.cpp)
+void test_log_level();
+void test_log_filtering();
+void test_log_format();
+
 void test_split() {
     auto result = mana::util::split("hello,world,foo", ",");
     assert(result.size() == 3);
@@ -68,5 +73,11 @@ int main() {
     test_ends_with();
     test_timestamp();
     std::cout << "All utility tests passed!" << std::endl;
+
+    test_log_level();
+    test_log_filtering();
+    test_log_format();
+    std::cout << "All logging tests passed!" << std::endl;
+
     return 0;
 }
