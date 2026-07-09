@@ -27,6 +27,12 @@ void test_thread_pool_multiple_tasks();
 void test_thread_pool_wait_all();
 void test_thread_pool_pending_count();
 
+// Event bus test declarations (defined in test_event_bus.cpp)
+void test_event_bus_subscribe_publish();
+void test_event_bus_multiple_subscribers();
+void test_event_bus_unsubscribe();
+void test_event_bus_different_types();
+
 void test_split() {
     auto result = mana::util::split("hello,world,foo", ",");
     assert(result.size() == 3);
@@ -118,6 +124,12 @@ int main() {
     test_thread_pool_wait_all();
     test_thread_pool_pending_count();
     std::cout << "All thread pool tests passed!" << std::endl;
+
+    test_event_bus_subscribe_publish();
+    test_event_bus_multiple_subscribers();
+    test_event_bus_unsubscribe();
+    test_event_bus_different_types();
+    std::cout << "All event bus tests passed!" << std::endl;
 
     return 0;
 }
