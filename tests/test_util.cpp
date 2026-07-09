@@ -21,6 +21,12 @@ void test_context_clear();
 void test_context_keys();
 void test_context_stack();
 
+// Thread pool test declarations (defined in test_thread_pool.cpp)
+void test_thread_pool_submit();
+void test_thread_pool_multiple_tasks();
+void test_thread_pool_wait_all();
+void test_thread_pool_pending_count();
+
 void test_split() {
     auto result = mana::util::split("hello,world,foo", ",");
     assert(result.size() == 3);
@@ -106,6 +112,12 @@ int main() {
     test_context_keys();
     test_context_stack();
     std::cout << "All context tests passed!" << std::endl;
+
+    test_thread_pool_submit();
+    test_thread_pool_multiple_tasks();
+    test_thread_pool_wait_all();
+    test_thread_pool_pending_count();
+    std::cout << "All thread pool tests passed!" << std::endl;
 
     return 0;
 }
