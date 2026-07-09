@@ -59,8 +59,8 @@ public:
     }
 
 private:
-    class Impl;
-    std::unique_ptr<Impl> impl_;
+    class Implementation;
+    std::unique_ptr<Implementation> impl_;
 };
 
 } // namespace mana::log
