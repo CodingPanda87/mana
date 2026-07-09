@@ -47,12 +47,18 @@ void EventBus::unsubscribe_internal(std::type_index type, size_t subscription_id
 }
 
 void EventBus::publish_internal(std::type_index type, const std::any& event) {
-    std::shared_lock lock(impl_->mutex);
-    auto it = impl_->subscribers.find(type);
-    if (it != impl_->subscribers.end()) {
-        for (const auto& sub : it->second) {
-            sub.callback(event);
+    std::vector<std::function<void(const std::any&)>> callbacks;
+    {
+        std::shared_lock lock(impl_->mutex);
+        auto it = impl_->subscribers.find(type);
+        if (it != impl_->subscribers.end()) {
+            for (const auto& sub : it->second) {
+                callbacks.push_back(sub.callback);
+            }
         }
+    }
+    for (const auto& cb : callbacks) {
+        cb(event);
     }
 }
 
