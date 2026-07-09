@@ -7,6 +7,12 @@ void test_log_level();
 void test_log_filtering();
 void test_log_format();
 
+// IO test declarations (defined in test_io.cpp)
+void test_write_and_read();
+void test_exists();
+void test_file_size();
+void test_read_nonexistent();
+
 void test_split() {
     auto result = mana::util::split("hello,world,foo", ",");
     assert(result.size() == 3);
@@ -78,6 +84,12 @@ int main() {
     test_log_filtering();
     test_log_format();
     std::cout << "All logging tests passed!" << std::endl;
+
+    test_write_and_read();
+    test_exists();
+    test_file_size();
+    test_read_nonexistent();
+    std::cout << "All IO tests passed!" << std::endl;
 
     return 0;
 }
