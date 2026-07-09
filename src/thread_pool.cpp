@@ -16,8 +16,9 @@ public:
 
     mutable std::mutex mutex;
     std::condition_variable condition;
+    std::condition_variable completion_cv;
     std::atomic<bool> stop{false};
-    std::atomic<size_t> active_tasks{0};
+    size_t active_tasks{0};
 };
 
 ThreadPool::ThreadPool(size_t thread_count) : impl_(std::make_unique<Impl>()) {
@@ -38,11 +39,15 @@ ThreadPool::ThreadPool(size_t thread_count) : impl_(std::make_unique<Impl>()) {
 
                     task = std::move(impl_->tasks.front());
                     impl_->tasks.pop();
+                    impl_->active_tasks++;
                 }
 
-                impl_->active_tasks++;
                 task();
-                impl_->active_tasks--;
+                {
+                    std::unique_lock<std::mutex> lock(impl_->mutex);
+                    impl_->active_tasks--;
+                }
+                impl_->completion_cv.notify_all();
             }
         });
     }
@@ -68,14 +73,10 @@ void ThreadPool::submit_internal(std::function<void()> task) {
 }
 
 void ThreadPool::wait_all() {
-    while (true) {
-        std::unique_lock<std::mutex> lock(impl_->mutex);
-        if (impl_->tasks.empty() && impl_->active_tasks.load() == 0) {
-            break;
-        }
-        lock.unlock();
-        std::this_thread::yield();
-    }
+    std::unique_lock<std::mutex> lock(impl_->mutex);
+    impl_->completion_cv.wait(lock, [this]() {
+        return impl_->tasks.empty() && impl_->active_tasks == 0;
+    });
 }
 
 size_t ThreadPool::pending_count() const {
