@@ -16,10 +16,17 @@ void test_split_empty() {
     assert(result[0] == "");
 }
 
+void test_split_empty_delimiter() {
+    auto result = mana::util::split("hello", "");
+    assert(result.size() == 1);
+    assert(result[0] == "hello");
+}
+
 void test_trim() {
     assert(mana::util::trim("  hello  ") == "hello");
     assert(mana::util::trim("hello") == "hello");
     assert(mana::util::trim("  ") == "");
+    assert(mana::util::trim("") == "");
 }
 
 void test_to_lower() {
@@ -53,6 +60,7 @@ void test_timestamp() {
 int main() {
     test_split();
     test_split_empty();
+    test_split_empty_delimiter();
     test_trim();
     test_to_lower();
     test_to_upper();

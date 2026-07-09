@@ -7,6 +7,11 @@ namespace mana::util {
 
 std::vector<std::string> split(const std::string& str, const std::string& delimiter) {
     std::vector<std::string> result;
+    if (delimiter.empty()) {
+        result.push_back(str);
+        return result;
+    }
+
     if (str.empty()) {
         result.push_back("");
         return result;
@@ -39,14 +44,18 @@ int64_t current_timestamp_s() {
 
 std::string trim(const std::string& str) {
     auto start = str.begin();
-    while (start != str.end() && std::isspace(*start)) {
+    while (start != str.end() && std::isspace(static_cast<unsigned char>(*start))) {
         start++;
     }
 
-    auto end = str.end();
-    do {
+    if (start == str.end()) {
+        return "";
+    }
+
+    auto end = str.end() - 1;
+    while (end != start && std::isspace(static_cast<unsigned char>(*end))) {
         end--;
-    } while (std::distance(start, end) > 0 && std::isspace(*end));
+    }
 
     return std::string(start, end + 1);
 }
