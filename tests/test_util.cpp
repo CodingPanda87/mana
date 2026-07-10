@@ -33,6 +33,11 @@ void test_event_bus_multiple_subscribers();
 void test_event_bus_unsubscribe();
 void test_event_bus_different_types();
 
+// Framework test declarations (defined in test_framework.cpp)
+void test_framework_initialize();
+void test_framework_singleton();
+void test_framework_modules();
+
 void test_split() {
     auto result = mana::util::split("hello,world,foo", ",");
     assert(result.size() == 3);
@@ -130,6 +135,11 @@ int main() {
     test_event_bus_unsubscribe();
     test_event_bus_different_types();
     std::cout << "All event bus tests passed!" << std::endl;
+
+    test_framework_initialize();
+    test_framework_singleton();
+    test_framework_modules();
+    std::cout << "All framework tests passed!" << std::endl;
 
     return 0;
 }
