@@ -35,7 +35,7 @@ int main() {
     auto& logger = mana::logger();
     logger.info("Hello, Mana!");
 
-    auto& pool = mana::thread_pool();
+    auto& pool = mana::instance().thread_pool;
     auto future = pool.submit([]() { return 42; });
     logger.info("Result: {}", future.get());
 
@@ -44,6 +44,12 @@ int main() {
 }
 ```
 
+## Testing
+
+```bash
+ctest --test-dir build -C Debug
+```
+
 ## License
 
-MIT
+Apache 2.0
