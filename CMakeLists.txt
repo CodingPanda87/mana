@@ -33,6 +33,16 @@ if(MANA_BUILD_TESTS)
         tests/test_util.cpp
         tests/test_math.cpp
         tests/test_geo.cpp
+        tests/test_result.cpp
+        tests/test_scope_guard.cpp
+        tests/test_enum.cpp
+        tests/test_hash.cpp
+        tests/test_type_traits.cpp
+        tests/test_bit.cpp
+        tests/test_numeric.cpp
+        tests/test_fixed.cpp
+        tests/test_optional.cpp
+        tests/test_variant.cpp
         tests/test_log.cpp
         tests/test_context.cpp
         tests/test_thread_pool.cpp

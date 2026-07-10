@@ -12,6 +12,17 @@
 #include "util/util.hpp"
 #include "util/math.hpp"
 #include "util/geo.hpp"
+// Enrichment util modules
+#include "util/result.hpp"
+#include "util/scope_guard.hpp"
+#include "util/enum.hpp"
+#include "util/hash.hpp"
+#include "util/type_traits.hpp"
+#include "util/bit.hpp"
+#include "util/numeric.hpp"
+#include "util/fixed.hpp"
+#include "util/optional.hpp"
+#include "util/variant.hpp"
 
 namespace mana {
 

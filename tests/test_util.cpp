@@ -76,6 +76,70 @@ void test_destination();
 void test_coord_convert();
 void test_quadtree();
 
+// Result test declarations (defined in test_result.cpp)
+void test_result_ok();
+void test_result_err();
+void test_result_and_then();
+void test_result_transform();
+void test_result_or_else();
+void test_result_operator_and();
+
+// Scope guard test declarations (defined in test_scope_guard.cpp)
+void test_scope_guard_defer();
+void test_scope_guard_dismiss();
+void test_scope_guard_success();
+void test_scope_guard_failure();
+
+// Enum test declarations (defined in test_enum.cpp)
+void test_enum_to_string();
+void test_enum_from_string();
+void test_enum_values();
+void test_enum_names();
+
+// Hash test declarations (defined in test_hash.cpp)
+void test_hash_fnv1a();
+void test_hash_crc32();
+void test_hash_combine();
+
+// Type traits test declarations (defined in test_type_traits.cpp)
+void test_type_traits_container();
+void test_type_traits_specialization();
+void test_type_traits_typelist();
+
+// Bit test declarations (defined in test_bit.cpp)
+void test_bit_popcount();
+void test_bit_countl_zero();
+void test_bit_bit_ceil();
+void test_bit_bit_floor();
+void test_bit_has_single_bit();
+void test_bit_byteswap();
+void test_bit_endian();
+
+// Numeric test declarations (defined in test_numeric.cpp)
+void test_numeric_sat_cast();
+void test_numeric_safe_arithmetic();
+void test_numeric_overflow_detection();
+void test_numeric_gcd_lcm();
+void test_numeric_ipow();
+void test_numeric_factorial();
+
+// Fixed container test declarations (defined in test_fixed.cpp)
+void test_fixed_string();
+void test_fixed_string_nttp();
+void test_fixed_vector();
+void test_fixed_vector_constexpr();
+void test_small_vector();
+
+// Optional test declarations (defined in test_optional.cpp)
+void test_optional_and_then();
+void test_optional_transform();
+void test_optional_or_else();
+void test_optional_value_or_else();
+
+// Variant test declarations (defined in test_variant.cpp)
+void test_variant_overloaded();
+void test_variant_match();
+
 void test_timestamp() {
     auto ms = mana::util::timestamp_ms();
     auto s = mana::util::timestamp_s();
@@ -259,6 +323,70 @@ int main() {
     test_coord_convert();
     test_quadtree();
     std::cout << "All geo tests passed!" << std::endl;
+
+    test_result_ok();
+    test_result_err();
+    test_result_and_then();
+    test_result_transform();
+    test_result_or_else();
+    test_result_operator_and();
+    std::cout << "All result tests passed!" << std::endl;
+
+    test_scope_guard_defer();
+    test_scope_guard_dismiss();
+    test_scope_guard_success();
+    test_scope_guard_failure();
+    std::cout << "All scope guard tests passed!" << std::endl;
+
+    test_enum_to_string();
+    test_enum_from_string();
+    test_enum_values();
+    test_enum_names();
+    std::cout << "All enum tests passed!" << std::endl;
+
+    test_hash_fnv1a();
+    test_hash_crc32();
+    test_hash_combine();
+    std::cout << "All hash tests passed!" << std::endl;
+
+    test_type_traits_container();
+    test_type_traits_specialization();
+    test_type_traits_typelist();
+    std::cout << "All type traits tests passed!" << std::endl;
+
+    test_bit_popcount();
+    test_bit_countl_zero();
+    test_bit_bit_ceil();
+    test_bit_bit_floor();
+    test_bit_has_single_bit();
+    test_bit_byteswap();
+    test_bit_endian();
+    std::cout << "All bit tests passed!" << std::endl;
+
+    test_numeric_sat_cast();
+    test_numeric_safe_arithmetic();
+    test_numeric_overflow_detection();
+    test_numeric_gcd_lcm();
+    test_numeric_ipow();
+    test_numeric_factorial();
+    std::cout << "All numeric tests passed!" << std::endl;
+
+    test_fixed_string();
+    test_fixed_string_nttp();
+    test_fixed_vector();
+    test_fixed_vector_constexpr();
+    test_small_vector();
+    std::cout << "All fixed container tests passed!" << std::endl;
+
+    test_optional_and_then();
+    test_optional_transform();
+    test_optional_or_else();
+    test_optional_value_or_else();
+    std::cout << "All optional tests passed!" << std::endl;
+
+    test_variant_overloaded();
+    test_variant_match();
+    std::cout << "All variant tests passed!" << std::endl;
 
     return 0;
 }
