@@ -54,6 +54,17 @@ void test_framework_initialize();
 void test_framework_singleton();
 void test_framework_modules();
 
+// Math test declarations (defined in test_math.cpp)
+void test_clamp();
+void test_lerp();
+void test_abs();
+void test_min_max();
+void test_radians_degrees();
+void test_sin();
+void test_cos();
+void test_tan();
+void test_sqrt();
+
 void test_timestamp() {
     auto ms = mana::util::time::current_timestamp_ms();
     auto s = mana::util::time::current_timestamp_s();
@@ -214,6 +225,17 @@ int main() {
     test_framework_singleton();
     test_framework_modules();
     std::cout << "All framework tests passed!" << std::endl;
+
+    test_clamp();
+    test_lerp();
+    test_abs();
+    test_min_max();
+    test_radians_degrees();
+    test_sin();
+    test_cos();
+    test_tan();
+    test_sqrt();
+    std::cout << "All math tests passed!" << std::endl;
 
     return 0;
 }
