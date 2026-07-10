@@ -1,10 +1,9 @@
 #pragma once
 
 #include <cstddef>
-#include <cstring>
 #include <algorithm>
 #include <string_view>
-#include <memory>
+#include <new>
 #include <initializer_list>
 #include <stdexcept>
 
@@ -92,22 +91,26 @@ public:
     }
 
     constexpr void push_back(const T& value) {
-        if (size_ >= N)
+        if (size_ >= N) {
 #ifdef __cpp_constexpr_exceptions
             throw std::overflow_error("fixed_vector: capacity exceeded");
 #else
             __assume(false);
+            return;
 #endif
+        }
         data_[size_++] = value;
     }
 
     constexpr void push_back(T&& value) {
-        if (size_ >= N)
+        if (size_ >= N) {
 #ifdef __cpp_constexpr_exceptions
             throw std::overflow_error("fixed_vector: capacity exceeded");
 #else
             __assume(false);
+            return;
 #endif
+        }
         data_[size_++] = std::move(value);
     }
 
@@ -176,6 +179,38 @@ public:
             other.size_ = 0;
             other.capacity_ = N;
         }
+    }
+
+    small_vector& operator=(const small_vector& other) {
+        if (this == &other) return *this;
+        clear();
+        reserve(other.size_);
+        for (size_t i = 0; i < other.size_; ++i) {
+            push_back(other.data_[i]);
+        }
+        return *this;
+    }
+
+    small_vector& operator=(small_vector&& other) noexcept {
+        if (this == &other) return *this;
+        clear();
+        if (other.data_ == reinterpret_cast<T*>(other.stack_buf_)) {
+            reserve(other.size_);
+            for (size_t i = 0; i < other.size_; ++i) {
+                push_back(std::move(other.data_[i]));
+            }
+        } else {
+            if (data_ != reinterpret_cast<T*>(stack_buf_)) {
+                ::operator delete(data_);
+            }
+            data_ = other.data_;
+            size_ = other.size_;
+            capacity_ = other.capacity_;
+            other.data_ = reinterpret_cast<T*>(other.stack_buf_);
+            other.size_ = 0;
+            other.capacity_ = N;
+        }
+        return *this;
     }
 
     ~small_vector() {
