@@ -1,6 +1,19 @@
-#include <mana/util.h>
+#include <mana/util/time.hpp>
 #include <cassert>
 #include <iostream>
+
+// String test declarations (defined in test_string.cpp)
+void test_split();
+void test_split_empty();
+void test_split_empty_delimiter();
+void test_trim();
+void test_to_lower();
+void test_to_upper();
+void test_starts_with();
+void test_ends_with();
+void test_contains();
+void test_replace();
+void test_join();
 
 // Log test declarations (defined in test_log.cpp)
 void test_log_level();
@@ -38,62 +51,18 @@ void test_framework_initialize();
 void test_framework_singleton();
 void test_framework_modules();
 
-void test_split() {
-    auto result = mana::util::split("hello,world,foo", ",");
-    assert(result.size() == 3);
-    assert(result[0] == "hello");
-    assert(result[1] == "world");
-    assert(result[2] == "foo");
-}
-
-void test_split_empty() {
-    auto result = mana::util::split("", ",");
-    assert(result.size() == 1);
-    assert(result[0] == "");
-}
-
-void test_split_empty_delimiter() {
-    auto result = mana::util::split("hello", "");
-    assert(result.size() == 1);
-    assert(result[0] == "hello");
-}
-
-void test_trim() {
-    assert(mana::util::trim("  hello  ") == "hello");
-    assert(mana::util::trim("hello") == "hello");
-    assert(mana::util::trim("  ") == "");
-    assert(mana::util::trim("") == "");
-}
-
-void test_to_lower() {
-    assert(mana::util::to_lower("HELLO") == "hello");
-    assert(mana::util::to_lower("Hello") == "hello");
-}
-
-void test_to_upper() {
-    assert(mana::util::to_upper("hello") == "HELLO");
-    assert(mana::util::to_upper("Hello") == "HELLO");
-}
-
-void test_starts_with() {
-    assert(mana::util::starts_with("hello world", "hello") == true);
-    assert(mana::util::starts_with("hello world", "world") == false);
-}
-
-void test_ends_with() {
-    assert(mana::util::ends_with("hello world", "world") == true);
-    assert(mana::util::ends_with("hello world", "hello") == false);
-}
-
 void test_timestamp() {
-    auto ms = mana::util::current_timestamp_ms();
-    auto s = mana::util::current_timestamp_s();
+    auto ms = mana::util::time::current_timestamp_ms();
+    auto s = mana::util::time::current_timestamp_s();
     assert(ms > 0);
     assert(s > 0);
     assert(ms >= s * 1000);
 }
 
 int main() {
+    test_timestamp();
+    std::cout << "All utility tests passed!" << std::endl;
+
     test_split();
     test_split_empty();
     test_split_empty_delimiter();
@@ -102,8 +71,10 @@ int main() {
     test_to_upper();
     test_starts_with();
     test_ends_with();
-    test_timestamp();
-    std::cout << "All utility tests passed!" << std::endl;
+    test_contains();
+    test_replace();
+    test_join();
+    std::cout << "All string tests passed!" << std::endl;
 
     test_log_level();
     test_log_filtering();

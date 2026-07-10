@@ -1,5 +1,5 @@
 #include <mana/log.h>
-#include <mana/util.h>
+#include <mana/util/time.hpp>
 #include <iostream>
 #include <mutex>
 #include <atomic>
@@ -24,7 +24,7 @@ public:
     }
 
     std::string format_timestamp() const {
-        int64_t timestamp_ms = mana::util::current_timestamp_ms();
+        int64_t timestamp_ms = mana::util::time::current_timestamp_ms();
         auto time_s = static_cast<time_t>(timestamp_ms / 1000);
         auto ms = timestamp_ms % 1000;
 

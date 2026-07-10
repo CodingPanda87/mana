@@ -6,7 +6,6 @@
 #include "context.h"
 #include "log.h"
 #include "io.h"
-#include "util.h"
 
 namespace mana {
 

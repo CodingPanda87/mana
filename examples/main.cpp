@@ -1,4 +1,5 @@
 #include <mana/mana.h>
+#include <mana/util/string.hpp>
 #include <iostream>
 
 int main() {
@@ -43,7 +44,7 @@ int main() {
     mana::context::detach();
 
     // Use utilities
-    auto parts = mana::util::split("hello,world,foo", ",");
+    auto parts = mana::util::string::split("hello,world,foo", ",");
     logger.info("Split result: {} parts", parts.size());
 
     // Use file manager

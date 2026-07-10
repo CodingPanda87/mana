@@ -10,7 +10,6 @@ option(MANA_BUILD_EXAMPLES "Build examples" ON)
 
 # Library target
 add_library(mana SHARED
-    src/util.cpp
     src/log.cpp
     src/io.cpp
     src/context.cpp
@@ -31,6 +30,7 @@ if(MANA_BUILD_TESTS)
     enable_testing()
     add_executable(mana_tests
         tests/test_util.cpp
+        tests/test_string.cpp
         tests/test_log.cpp
         tests/test_io.cpp
         tests/test_context.cpp
