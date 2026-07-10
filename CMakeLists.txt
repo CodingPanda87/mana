@@ -28,16 +28,16 @@ target_compile_definitions(mana PRIVATE MANA_EXPORTS)
 if(MANA_BUILD_TESTS)
     enable_testing()
     add_executable(mana_tests
-        tests/test_util.cpp
         tests/test_string.cpp
-        tests/test_log.cpp
         tests/test_io_util.cpp
+        tests/test_util.cpp
+        tests/test_math.cpp
+        tests/test_geo.cpp
+        tests/test_log.cpp
         tests/test_context.cpp
         tests/test_thread_pool.cpp
         tests/test_event_bus.cpp
         tests/test_framework.cpp
-        tests/test_math.cpp
-        tests/test_geo.cpp
     )
     target_link_libraries(mana_tests PRIVATE mana)
     add_test(NAME mana_tests COMMAND mana_tests)

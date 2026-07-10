@@ -53,6 +53,7 @@ void test_event_bus_different_types();
 void test_framework_initialize();
 void test_framework_singleton();
 void test_framework_modules();
+void test_util_modules();
 
 // Math test declarations (defined in test_math.cpp)
 void test_clamp();
@@ -235,6 +236,7 @@ int main() {
     test_framework_initialize();
     test_framework_singleton();
     test_framework_modules();
+    test_util_modules();
     std::cout << "All framework tests passed!" << std::endl;
 
     test_clamp();

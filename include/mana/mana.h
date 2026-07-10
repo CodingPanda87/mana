@@ -6,6 +6,13 @@
 #include "context.h"
 #include "log.h"
 
+// New util modules
+#include "util/string.hpp"
+#include "util/io.hpp"
+#include "util/util.hpp"
+#include "util/math.hpp"
+#include "util/geo.hpp"
+
 namespace mana {
 
 // Framework state (internal)
