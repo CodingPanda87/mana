@@ -30,7 +30,6 @@ void test_framework_modules() {
     auto& bus = mana::instance().event_bus;
     auto& ctx = mana::instance().context;
     auto& logger = mana::logger();
-    auto& fm = mana::file_manager();
 
     // Should not crash
     assert(pool.thread_count() > 0);

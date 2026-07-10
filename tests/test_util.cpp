@@ -20,11 +20,13 @@ void test_log_level();
 void test_log_filtering();
 void test_log_format();
 
-// IO test declarations (defined in test_io.cpp)
+// IO test declarations (defined in test_io_util.cpp)
 void test_write_and_read();
 void test_exists();
 void test_file_size();
 void test_read_nonexistent();
+void test_append();
+void test_read_lines();
 
 // Context test declarations (defined in test_context.cpp)
 void test_context_put_get();
@@ -85,6 +87,8 @@ int main() {
     test_exists();
     test_file_size();
     test_read_nonexistent();
+    test_append();
+    test_read_lines();
     std::cout << "All IO tests passed!" << std::endl;
 
     test_context_put_get();

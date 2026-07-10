@@ -43,8 +43,4 @@ log::Logger& logger() {
     return instance().logger;
 }
 
-io::FileManager& file_manager() {
-    return instance().file_manager;
-}
-
 } // namespace mana

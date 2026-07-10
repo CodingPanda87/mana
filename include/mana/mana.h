@@ -5,7 +5,6 @@
 #include "event_bus.h"
 #include "context.h"
 #include "log.h"
-#include "io.h"
 
 namespace mana {
 
@@ -14,7 +13,6 @@ struct MANA_API FrameworkState {
     event_bus::EventBus event_bus;
     context::Context context;
     log::Logger logger;
-    io::FileManager file_manager;
     thread_pool::ThreadPool thread_pool;  // Destroyed first - joins threads before other modules die
 
     FrameworkState() = default;
@@ -37,6 +35,5 @@ MANA_API void shutdown();
 // Direct module access
 // For thread_pool, event_bus, context: use instance().member (names conflict with namespaces)
 MANA_API log::Logger& logger();
-MANA_API io::FileManager& file_manager();
 
 } // namespace mana

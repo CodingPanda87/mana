@@ -1,5 +1,6 @@
 #include <mana/mana.h>
 #include <mana/util/string.hpp>
+#include <mana/util/io.hpp>
 #include <iostream>
 
 int main() {
@@ -47,10 +48,9 @@ int main() {
     auto parts = mana::util::string::split("hello,world,foo", ",");
     logger.info("Split result: {} parts", parts.size());
 
-    // Use file manager
-    auto& fm = mana::file_manager();
-    fm.write("test.txt", "Hello from Mana!");
-    if (auto content = fm.read_all("test.txt")) {
+    // Use IO utilities
+    mana::util::io::write("test.txt", "Hello from Mana!");
+    if (auto content = mana::util::io::read_all("test.txt")) {
         logger.info("File content: {}", *content);
     }
 

@@ -11,7 +11,6 @@ option(MANA_BUILD_EXAMPLES "Build examples" ON)
 # Library target
 add_library(mana SHARED
     src/log.cpp
-    src/io.cpp
     src/context.cpp
     src/thread_pool.cpp
     src/event_bus.cpp
@@ -32,7 +31,7 @@ if(MANA_BUILD_TESTS)
         tests/test_util.cpp
         tests/test_string.cpp
         tests/test_log.cpp
-        tests/test_io.cpp
+        tests/test_io_util.cpp
         tests/test_context.cpp
         tests/test_thread_pool.cpp
         tests/test_event_bus.cpp
