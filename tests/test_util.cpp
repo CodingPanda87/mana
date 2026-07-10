@@ -1,4 +1,5 @@
 #include <mana/util/time.hpp>
+#include <mana/util/util.hpp>
 #include <cassert>
 #include <iostream>
 
@@ -61,8 +62,106 @@ void test_timestamp() {
     assert(ms >= s * 1000);
 }
 
+void test_util_to_string() {
+    assert(mana::util::to_string(42) == "42");
+    assert(mana::util::to_string(3.14) == "3.140000");
+    assert(mana::util::to_string(true) == "true");
+    assert(mana::util::to_string(std::string("hello")) == "hello");
+}
+
+void test_util_from_string() {
+    auto val1 = mana::util::from_string<int>("42");
+    assert(val1.has_value());
+    assert(val1.value() == 42);
+
+    auto val2 = mana::util::from_string<double>("3.14");
+    assert(val2.has_value());
+    assert(val2.value() == 3.14);
+
+    auto val3 = mana::util::from_string<int>("not_a_number");
+    assert(!val3.has_value());
+}
+
+void test_util_contains() {
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+    assert(mana::util::contains(vec, 3) == true);
+    assert(mana::util::contains(vec, 6) == false);
+}
+
+void test_util_remove() {
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+    mana::util::remove(vec, 3);
+    assert(vec.size() == 4);
+    assert(!mana::util::contains(vec, 3));
+}
+
+void test_util_filter() {
+    std::vector<int> vec = {1, 2, 3, 4, 5, 6};
+    auto even = mana::util::filter(vec, [](int x) { return x % 2 == 0; });
+    assert(even.size() == 3);
+    assert(even[0] == 2);
+    assert(even[1] == 4);
+    assert(even[2] == 6);
+}
+
+void test_util_map() {
+    std::vector<int> vec = {1, 2, 3};
+    auto doubled = mana::util::map(vec, [](int x) { return x * 2; });
+    assert(doubled.size() == 3);
+    assert(doubled[0] == 2);
+    assert(doubled[1] == 4);
+    assert(doubled[2] == 6);
+}
+
+void test_util_timestamp() {
+    auto ms = mana::util::timestamp_ms();
+    auto s = mana::util::timestamp_s();
+    assert(ms > 0);
+    assert(s > 0);
+    assert(ms >= s * 1000);
+}
+
+void test_util_timestamp_iso8601() {
+    auto ts = mana::util::timestamp_iso8601();
+    assert(ts.length() == 24); // "2026-07-10T12:00:00.000Z"
+    assert(ts.back() == 'Z');
+}
+
+void test_util_in_range() {
+    assert(mana::util::in_range(5, 1, 10) == true);
+    assert(mana::util::in_range(0, 1, 10) == false);
+    assert(mana::util::in_range(1, 1, 10) == true);
+    assert(mana::util::in_range(10, 1, 10) == true);
+}
+
+void test_util_hex() {
+    std::string data = "Hello";
+    auto hex = mana::util::to_hex(data);
+    assert(hex == "48656c6c6f");
+
+    auto decoded = mana::util::from_hex(hex);
+    assert(decoded.has_value());
+    assert(decoded.value() == data);
+}
+
+void test_util_from_hex_invalid() {
+    auto result = mana::util::from_hex("invalid");
+    assert(!result.has_value());
+}
+
 int main() {
     test_timestamp();
+    test_util_to_string();
+    test_util_from_string();
+    test_util_contains();
+    test_util_remove();
+    test_util_filter();
+    test_util_map();
+    test_util_timestamp();
+    test_util_timestamp_iso8601();
+    test_util_in_range();
+    test_util_hex();
+    test_util_from_hex_invalid();
     std::cout << "All utility tests passed!" << std::endl;
 
     test_split();
