@@ -12,11 +12,11 @@ namespace mana {
 
 // Framework state (internal)
 struct MANA_API FrameworkState {
-    thread_pool::ThreadPool thread_pool;
     event_bus::EventBus event_bus;
     context::Context context;
     log::Logger logger;
     io::FileManager file_manager;
+    thread_pool::ThreadPool thread_pool;  // Destroyed first - joins threads before other modules die
 
     FrameworkState() = default;
     ~FrameworkState() = default;

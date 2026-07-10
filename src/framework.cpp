@@ -34,6 +34,7 @@ void shutdown() {
         return;
     }
 
+    g_state->thread_pool.wait_all();
     g_state.reset();
     g_initialized = false;
 }
