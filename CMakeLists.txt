@@ -37,6 +37,7 @@ if(MANA_BUILD_TESTS)
         tests/test_event_bus.cpp
         tests/test_framework.cpp
         tests/test_math.cpp
+        tests/test_geo.cpp
     )
     target_link_libraries(mana_tests PRIVATE mana)
     add_test(NAME mana_tests COMMAND mana_tests)

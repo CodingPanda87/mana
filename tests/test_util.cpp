@@ -65,6 +65,17 @@ void test_cos();
 void test_tan();
 void test_sqrt();
 
+// Geo test declarations (defined in test_geo.cpp)
+void test_point();
+void test_rect();
+void test_circle();
+void test_segment();
+void test_haversine();
+void test_bearing();
+void test_destination();
+void test_coord_convert();
+void test_quadtree();
+
 void test_timestamp() {
     auto ms = mana::util::time::current_timestamp_ms();
     auto s = mana::util::time::current_timestamp_s();
@@ -236,6 +247,17 @@ int main() {
     test_tan();
     test_sqrt();
     std::cout << "All math tests passed!" << std::endl;
+
+    test_point();
+    test_rect();
+    test_circle();
+    test_segment();
+    test_haversine();
+    test_bearing();
+    test_destination();
+    test_coord_convert();
+    test_quadtree();
+    std::cout << "All geo tests passed!" << std::endl;
 
     return 0;
 }
