@@ -313,6 +313,23 @@ public:
 
     size_t size() const { return size_; }
 
+    std::vector<Point> query_nearest(const Point& point, size_t count) const {
+        std::vector<Point> all_points;
+        collect_all(root_.get(), all_points);
+
+        // Sort by distance
+        std::sort(all_points.begin(), all_points.end(),
+            [&point](const Point& a, const Point& b) {
+                return point.distance_to(a) < point.distance_to(b);
+            });
+
+        // Return first count points
+        if (all_points.size() > count) {
+            all_points.resize(count);
+        }
+        return all_points;
+    }
+
 private:
     static constexpr int max_depth = 10;
 
@@ -322,14 +339,16 @@ private:
         bool is_leaf = true;
     };
 
-    Node* get_quadrant(Node* node, const Rect& bounds, const Point& point) const {
-        double mid_x = (bounds.min.x + bounds.max.x) / 2;
-        double mid_y = (bounds.min.y + bounds.max.y) / 2;
-
-        if (point.x < mid_x) {
-            return point.y < mid_y ? node->children[0].get() : node->children[2].get();
-        } else {
-            return point.y < mid_y ? node->children[1].get() : node->children[3].get();
+    void collect_all(Node* node, std::vector<Point>& result) const {
+        for (const auto& p : node->points) {
+            result.push_back(p);
+        }
+        if (!node->is_leaf) {
+            for (int i = 0; i < 4; ++i) {
+                if (node->children[i]) {
+                    collect_all(node->children[i].get(), result);
+                }
+            }
         }
     }
 

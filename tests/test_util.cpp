@@ -1,4 +1,3 @@
-#include <mana/util/time.hpp>
 #include <mana/util/util.hpp>
 #include <cassert>
 #include <iostream>
@@ -78,8 +77,8 @@ void test_coord_convert();
 void test_quadtree();
 
 void test_timestamp() {
-    auto ms = mana::util::time::current_timestamp_ms();
-    auto s = mana::util::time::current_timestamp_s();
+    auto ms = mana::util::timestamp_ms();
+    auto s = mana::util::timestamp_s();
     assert(ms > 0);
     assert(s > 0);
     assert(ms >= s * 1000);
