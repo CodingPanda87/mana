@@ -2,7 +2,7 @@
 
 #include "export.h"
 #include "thread_pool.h"
-#include "event_bus.h"
+#include "event.h"
 #include "context.h"
 #include "log.h"
 
@@ -28,7 +28,7 @@ namespace mana {
 
 // Framework state (internal)
 struct MANA_API FrameworkState {
-    event_bus::EventBus event_bus;
+    event::EventBus event;
     context::Context context;
     log::Logger logger;
     thread_pool::ThreadPool thread_pool;  // Destroyed first - joins threads before other modules die
@@ -51,7 +51,7 @@ MANA_API void initialize();
 MANA_API void shutdown();
 
 // Direct module access
-// For thread_pool, event_bus, context: use instance().member (names conflict with namespaces)
+// For thread_pool, event, context: use instance().member (names conflict with namespaces)
 MANA_API log::Logger& logger();
 
 } // namespace mana

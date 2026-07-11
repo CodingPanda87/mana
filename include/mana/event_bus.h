@@ -9,7 +9,7 @@
 
 #include "export.h"
 
-namespace mana::event_bus {
+namespace mana::event {
 
 // Event type concept - any copyable type can be used as an event
 template<typename T>
@@ -60,4 +60,4 @@ private:
     std::unique_ptr<Impl> impl_;
 };
 
-} // namespace mana::event_bus
+} // namespace mana::event

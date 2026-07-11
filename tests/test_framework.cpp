@@ -20,7 +20,7 @@ void test_framework_singleton() {
 
 void test_framework_modules() {
     mana::initialize();
-    auto& bus = mana::instance().event_bus;
+    auto& bus = mana::instance().event;
     auto& ctx = mana::instance().context;
     auto& logger = mana::logger();
     auto& pool = mana::instance().thread_pool;

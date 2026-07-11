@@ -13,7 +13,7 @@ add_library(mana SHARED
     src/log.cpp
     src/context.cpp
     src/thread_pool.cpp
-    src/event_bus.cpp
+    src/event.cpp
     src/framework.cpp
 )
 
@@ -46,7 +46,7 @@ if(MANA_BUILD_TESTS)
         tests/test_log.cpp
         tests/test_context.cpp
         tests/test_thread_pool.cpp
-        tests/test_event_bus.cpp
+        tests/test_event.cpp
         tests/test_framework.cpp
     )
     target_link_libraries(mana_tests PRIVATE mana)

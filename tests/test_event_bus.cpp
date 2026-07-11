@@ -1,4 +1,4 @@
-#include <mana/event_bus.h>
+#include <mana/event.h>
 #include <cassert>
 #include <string>
 
@@ -10,8 +10,8 @@ struct StringEvent {
     std::string value;
 };
 
-void test_event_bus_subscribe_publish() {
-    mana::event_bus::EventBus bus;
+void test_event_subscribe_publish() {
+    mana::event::EventBus bus;
     int received_value = 0;
 
     bus.subscribe<TestEvent>([&received_value](const TestEvent& e) {
@@ -22,8 +22,8 @@ void test_event_bus_subscribe_publish() {
     assert(received_value == 42);
 }
 
-void test_event_bus_multiple_subscribers() {
-    mana::event_bus::EventBus bus;
+void test_event_multiple_subscribers() {
+    mana::event::EventBus bus;
     int count = 0;
 
     bus.subscribe<TestEvent>([&count](const TestEvent&) {
@@ -38,8 +38,8 @@ void test_event_bus_multiple_subscribers() {
     assert(count == 2);
 }
 
-void test_event_bus_unsubscribe() {
-    mana::event_bus::EventBus bus;
+void test_event_unsubscribe() {
+    mana::event::EventBus bus;
     int count = 0;
 
     auto id = bus.subscribe<TestEvent>([&count](const TestEvent&) {
@@ -54,8 +54,8 @@ void test_event_bus_unsubscribe() {
     assert(count == 1);  // Should not increase
 }
 
-void test_event_bus_different_types() {
-    mana::event_bus::EventBus bus;
+void test_event_different_types() {
+    mana::event::EventBus bus;
     int int_value = 0;
     std::string str_value;
 

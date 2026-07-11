@@ -27,7 +27,7 @@ include/mana/
 │   ├── math.hpp      # 数学函数（constexpr 三角函数）
 │   └── geo.hpp       # 几何/地理（点、线、矩形、坐标转换、空间索引）
 ├── context.h         # 保持不变
-├── event_bus.h       # 保持不变
+├── event.h       # 保持不变
 ├── export.h          # 保持不变
 ├── log.h             # 保持不变
 ├── mana.h            # 更新 include

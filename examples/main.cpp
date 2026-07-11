@@ -19,7 +19,7 @@ int main() {
     logger.info("Task result: {}", future.get());
 
     // Use event bus
-    auto& bus = mana::instance().event_bus;
+    auto& bus = mana::instance().event;
 
     struct MyEvent {
         int value;

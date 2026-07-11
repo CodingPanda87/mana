@@ -1,4 +1,4 @@
-#include <mana/event_bus.h>
+#include <mana/event.h>
 #include <unordered_map>
 #include <vector>
 #include <typeindex>
@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <any>
 
-namespace mana::event_bus {
+namespace mana::event {
 
 class EventBus::Impl {
 public:
@@ -66,4 +66,4 @@ void EventBus::publish_sync_internal(std::type_index type, const std::any& event
     publish_internal(type, event);
 }
 
-} // namespace mana::event_bus
+} // namespace mana::event

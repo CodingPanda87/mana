@@ -1560,7 +1560,7 @@ git commit -m "feat: add geo.hpp with geometry and coordinate conversion"
 
 #include "export.h"
 #include "thread_pool.h"
-#include "event_bus.h"
+#include "event.h"
 #include "context.h"
 #include "log.h"
 
@@ -1575,7 +1575,7 @@ namespace mana {
 
 // Framework state (internal)
 struct MANA_API FrameworkState {
-    event_bus::EventBus event_bus;
+    event::EventBus event;
     context::Context context;
     log::Logger logger;
     thread_pool::ThreadPool thread_pool;
@@ -1620,7 +1620,7 @@ add_library(mana SHARED
     src/log.cpp
     src/context.cpp
     src/thread_pool.cpp
-    src/event_bus.cpp
+    src/event.cpp
     src/framework.cpp
 )
 
@@ -1643,7 +1643,7 @@ if(MANA_BUILD_TESTS)
         tests/test_log.cpp
         tests/test_context.cpp
         tests/test_thread_pool.cpp
-        tests/test_event_bus.cpp
+        tests/test_event.cpp
         tests/test_framework.cpp
     )
     target_link_libraries(mana_tests PRIVATE mana)
@@ -1681,7 +1681,7 @@ void test_framework_singleton() {
 
 void test_framework_modules() {
     mana::initialize();
-    auto& bus = mana::instance().event_bus;
+    auto& bus = mana::instance().event;
     auto& ctx = mana::instance().context;
     auto& logger = mana::logger();
     auto& pool = mana::instance().thread_pool;
